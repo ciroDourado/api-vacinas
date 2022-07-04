@@ -1,0 +1,19 @@
+{
+  "name": "api-vacinas",
+  "version": "1.0.0",
+  "description": "Uma API feita para consultar registros de vacinas",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ciroDourado/api-vacinas.git"
+  },
+  "author": "Ciro Dourado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ciroDourado/api-vacinas/issues"
+  },
+  "homepage": "https://github.com/ciroDourado/api-vacinas#readme"
+}
