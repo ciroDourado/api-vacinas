@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ciroDourado/api-vacinas/issues"
   },
-  "homepage": "https://github.com/ciroDourado/api-vacinas#readme"
+  "homepage": "https://github.com/ciroDourado/api-vacinas#readme",
+  "devDependencies": {
+    "prisma": "^4.0.0"
+  }
 }
