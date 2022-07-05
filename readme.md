@@ -26,5 +26,5 @@ npx prisma migrate dev
 ```
 - Teste a aplicação fazendo:
 ```
-node server.js
+npm run dev
 ```
