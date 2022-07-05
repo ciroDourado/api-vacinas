@@ -18,7 +18,7 @@ npm ci
   3. se atente em dar um usuário com permissões de criar tabelas 
 ```
 cp .env.example .env
-code .
+code .env
 ```
 - Execute as migrações com:
 ```
