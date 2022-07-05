@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Vacinado {
+  id         Int       @id @default(autoincrement())
+  cpf        String    @db.VarChar(11) @unique
+  nome       String 
+  endereco   Endereco?
+  vacinas    VacinasTomadas[]
+}
+
+model Endereco {
+  id          Int      @id @default(autoincrement())
+  cep         String   @db.VarChar(8)
+  complemento String? 
+  numero      Int?
+  morador     Vacinado @relation(fields: [moradorId], references: [id])
+  moradorId   Int      @unique
+}
+
+model Vacina {
+  id        Int    @id @default(autoincrement())
+  nome      String @db.VarChar(300) @unique
+  doses     DosesDasVacinas[]
+  vacinados VacinasTomadas[]
+}
+
+model Dose {
+  id        Int    @id @default(autoincrement())
+  nome      String @db.VarChar(300) @unique
+  vacinas   DosesDasVacinas[]
+  aplicadas VacinasTomadas[]
+}
+
+model DosesDasVacinas {
+  vacina   Vacina @relation(fields: [vacinaId], references: [id])
+  vacinaId Int
+  dose     Dose @relation(fields: [doseId], references: [id])
+  doseId   Int
+
+  @@id([vacinaId, doseId])
+}
+
+model VacinasTomadas {
+  vacina     Vacina @relation(fields: [vacinaId], references: [id])
+  vacinaId   Int
+  vacinado   Vacinado @relation(fields: [vacinadoId], references: [id])
+  vacinadoId Int
+  dose       Dose @relation(fields: [doseId], references: [id])
+  doseId     Int
+
+  @@id([vacinaId, vacinadoId, doseId])
+}

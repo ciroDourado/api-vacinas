@@ -18,5 +18,8 @@
   "homepage": "https://github.com/ciroDourado/api-vacinas#readme",
   "devDependencies": {
     "prisma": "^4.0.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.0.0"
   }
 }
