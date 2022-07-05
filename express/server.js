@@ -1,13 +1,16 @@
-import   cors               from "cors"
-import   express            from "express"
-import { urlencoded, json } from "express"
-import { PrismaClient }     from '@prisma/client'
-const env = process.env
+const { PrismaClient } = require('@prisma/client')
+const cors             = require("cors")
+const express          = require("express")
+
+// variáveis de ambiente
+const env  = process.env
+const url  = env.APPLICATION_URL  || "http://localhost"
+const port = env.APPLICATION_PORT || 9000
 
 // módulos para serem acoplados na aplicação
-var url_encoded_parser = urlencoded({extended: true})
-var json_parser        = json()
-var cors_module        = cors({origin: "http://localhost:9001"})
+var url_encoded_parser = express.urlencoded({extended: true})
+var json_parser = express.json()
+var cors_module        = cors({origin: `${url}:9001`})
 
 // clients
 const app    = express()
@@ -19,7 +22,16 @@ app.use(json_parser)
 app.use(url_encoded_parser)
 
 // rotas
-app.get("/"         ,       (req, res) => res.json("testando"))
+app.get("/", (req, res) => {
+  let urls = {
+    urls: {
+      vacinados: [
+        {url: "/vacinados", método: "GET", descrição: "Listagem de vacinados"}
+      ]
+    }
+  }
+  return res.json(urls)
+})
 app.get("/vacinados", async (req, res) => {
   let vacinados = await prisma
     .vacinado
@@ -28,5 +40,4 @@ app.get("/vacinados", async (req, res) => {
 }) 
 // require("routes/vacinas/routes.js")(app)
 
-const port = env.APPLICATION_PORT || 9000
 app.listen(port, () => console.log(`Servindo na porta: ${port}`))
