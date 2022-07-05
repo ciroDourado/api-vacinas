@@ -2,7 +2,7 @@
   "name": "api-vacinas",
   "version": "1.0.0",
   "description": "Uma API feita para consultar registros de vacinas",
-  "main": "server.js",
+  "main": "express/server.js",
   "scripts": {
     "test": "test"
   },
