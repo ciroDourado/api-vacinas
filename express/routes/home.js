@@ -10,6 +10,13 @@ module.exports = app => {
           { url: "/vacinas/:id", método: "GET", descrição: "Busca de vacina" },
           { url: "/vacinas/:id", método: "PUT", descrição: "Atualização de vacina" },
           { url: "/vacinas/:id", método: "DELETE", descrição: "Deletar vacina" }
+        ],
+        vacinados: [
+          { url: "/vacinados", método: "GET", descrição: "Listagem de vacinados" },
+          { url: "/vacinados", método: "POST", descrição: "Cadastro de vacinados" },
+          { url: "/vacinados/:id", método: "GET", descrição: "Busca de vacinado" },
+          { url: "/vacinados/:id", método: "PUT", descrição: "Atualização de vacinado" },
+          { url: "/vacinados/:id", método: "DELETE", descrição: "Deletar vacinado" }
         ]
       }
     }
