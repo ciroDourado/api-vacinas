@@ -21,4 +21,22 @@ app.use(url_encoded_parser)
 require("../express/routes/home.js")(app)
 require("../express/routes/vacinas/routes.js")(app)
 
-app.listen(env.APPLICATION_PORT)
+let servidor = app.listen(env.APPLICATION_PORT)
+
+console.log(`Servindo na porta ${env.APPLICATION_PORT}`)
+console.log(`Acesse em: ${env.APPLICATION_URL}:${env.APPLICATION_PORT}`)
+console.log(`Aperte CTRL+C para finalizar\n`)
+
+process.on('SIGTERM', finalizar);
+process.on('SIGINT' , finalizar);
+
+function finalizar() {
+  servidor.close(() => {
+    console.log('Servidor finalizado com sucesso');
+    process.exit(0);
+  });
+  setTimeout(() => {
+    console.error('Conexões não fechadas a tempo, forçando desligamento');
+    process.exit(1);
+  }, 15000);
+}
