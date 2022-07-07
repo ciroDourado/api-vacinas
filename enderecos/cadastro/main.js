@@ -1,4 +1,4 @@
-const repositorio = require('../main.js');
+const configuracoes = require('../main.js');
 
 const validacaoMorador = require('../validacao/morador.js');
 const validacao        = require('../../validacao/main.js');
@@ -26,9 +26,9 @@ let regras_cadastro = {
 
 exports.cadastrar = async function (formulario) {
   if (await validacao.dadosSaoValidos(formulario, regras_cadastro)) {
-    await cadastro(formulario);
-    return "ok";
-  } else return "error";
+    return await cadastro(formulario);
+  } 
+  return null;
 }
 
 async function cadastro(formulario) {
@@ -40,7 +40,7 @@ async function cadastro(formulario) {
       moradorId: formulario.moradorId
     }
   };
-  await repositorio.create(endereco);
+  return await configuracoes.repositorio().create(endereco);
 }
 
 function numeroEValido(input) {
