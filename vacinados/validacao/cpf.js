@@ -4,7 +4,6 @@ exports.cpfEValido = async function (input) {
   let eString = typeof input === "string";
   let eNumerico = !isNaN(input);
   let tem11Caracteres = input.length == 11;
-  console.log(await cpfEUnico(input));
   return eString 
     && eNumerico 
     && tem11Caracteres 
