@@ -1,4 +1,4 @@
-const repositorio = require('../main.js');
+const configuracoes = require('../main.js');
 
 const validacaoCpf = require('../validacao/cpf.js');
 const validacao    = require('../../validacao/main.js');
@@ -18,9 +18,9 @@ let regras_cadastro = {
 
 exports.cadastrar = async function (formulario) {
   if (await validacao.dadosSaoValidos(formulario, regras_cadastro)) {
-    await cadastro(formulario);
-    return "ok";
-  } else return "error";
+    return await cadastro(formulario);
+  }
+  return null;
 }
 
 async function cadastro(formulario) {
@@ -30,7 +30,7 @@ async function cadastro(formulario) {
       cpf: formulario.cpf,
     }
   };
-  await repositorio.create(vacinado);
+  return await configuracoes.repositorio().create(vacinado);
 }
 
 function nomeEValido(input) {
