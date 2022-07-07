@@ -1,8 +1,22 @@
-exports.cpfEValido = function (input) {
+const configuracoes = require('../main.js');
+
+exports.cpfEValido = async function (input) {
   let eString = typeof input === "string";
   let eNumerico = !isNaN(input);
   let tem11Caracteres = input.length == 11;
-  return eString && eNumerico && tem11Caracteres && digitosSaoValidos(input);
+  console.log(await cpfEUnico(input));
+  return eString 
+    && eNumerico 
+    && tem11Caracteres 
+    && digitosSaoValidos(input) 
+    && (await cpfEUnico(input));
+}
+
+async function cpfEUnico(input) {
+  let resultado = await configuracoes
+    .repositorio()
+    .findUnique({ where: { cpf: input } });
+  return resultado == null;
 }
 
 function digitosSaoValidos(digitosCpf) {
