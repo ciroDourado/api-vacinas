@@ -7,7 +7,7 @@ const env = process.env
 // módulos para serem acoplados na aplicação
 var url_encoded_parser = express.urlencoded({extended: true})
 var json_parser        = express.json()
-var cors_module        = cors({ origin: `${env.APPLICATION_PORT}:${env.CORS_PORT}`})
+var cors_module        = cors()
 
 // clients
 const app = express()
