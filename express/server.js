@@ -21,7 +21,7 @@ app.use(url_encoded_parser)
 require("../express/routes/home.js")(app)
 require("../express/routes/enderecos/routes.js")(app)
 require("../express/routes/vacinados/routes.js")(app)
-// require("../express/routes/vacinas/routes.js")(app)
+require("../express/routes/vacinas/routes.js")(app)
 // require("../express/routes/validacao/routes.js")(app)
 
 let servidor = app.listen(env.APPLICATION_PORT)
