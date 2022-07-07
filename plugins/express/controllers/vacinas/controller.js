@@ -1,5 +1,5 @@
-const servicoDeCadastro = require("../../../vacinas/cadastro/main.js"); 
-const servicoDeListagem = require("../../../vacinas/listagem/main.js"); 
+const servicoDeCadastro = require("../../../../vacinas/cadastro/main.js"); 
+const servicoDeListagem = require("../../../../vacinas/listagem/main.js"); 
 
 
 exports.criar = async (req, res) => {

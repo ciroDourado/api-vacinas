@@ -1,5 +1,6 @@
-const servicoDeCadastro = require("../../../enderecos/cadastro/main.js"); 
-const servicoDeListagem = require("../../../enderecos/listagem/main.js"); 
+// const servicoDeCadastro = require("../../../../vacinados/cadastro/main.js"); 
+const servicoDeCadastro = require("../../../../vacinados/cadastro/com_endereco.js"); 
+const servicoDeListagem = require("../../../../vacinados/listagem/main.js"); 
 
 
 exports.criar = async (req, res) => {
@@ -8,8 +9,8 @@ exports.criar = async (req, res) => {
   return res.json(resultado ?? "erro");
 };
 exports.listar = async (req, res) => {
-  let enderecos = await servicoDeListagem.listar();
-  return res.json(enderecos);
+  let vacinados = await servicoDeListagem.listar();
+  return res.json(vacinados);
 };
 exports.encontrar = (req, res) => {
 
