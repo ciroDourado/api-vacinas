@@ -1,4 +1,5 @@
-const servicoDeCadastro = require("../../../vacinados/cadastro/main.js"); 
+// const servicoDeCadastro = require("../../../vacinados/cadastro/main.js"); 
+const servicoDeCadastro = require("../../../vacinados/cadastro/com_endereco.js"); 
 const servicoDeListagem = require("../../../vacinados/listagem/main.js"); 
 
 
