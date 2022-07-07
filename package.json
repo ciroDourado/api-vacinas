@@ -2,7 +2,7 @@
   "name": "api-vacinas",
   "version": "1.0.0",
   "description": "Uma API feita para consultar registros de vacinas",
-  "main": "express/server.js",
+  "main": "plugins/express/server.js",
   "scripts": {
     "test": "test",
     "dev": "node ."
@@ -24,5 +24,8 @@
     "@prisma/client": "^4.0.0",
     "cors": "^2.8.5",
     "express": "^4.18.1"
+  },
+  "prisma": {
+    "schema": "plugins/prisma/schema.prisma"
   }
 }
