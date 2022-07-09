@@ -31,7 +31,6 @@ model Vacina {
   id        Int    @id @default(autoincrement())
   nome      String @db.VarChar(300) @unique
   doses     DosesDasVacinas[]
-  vacinados VacinasTomadas[]
 }
 
 model Dose {
@@ -51,12 +50,11 @@ model DosesDasVacinas {
 }
 
 model VacinasTomadas {
-  vacina     Vacina @relation(fields: [vacinaId], references: [id])
-  vacinaId   Int
   vacinado   Vacinado @relation(fields: [vacinadoId], references: [id])
   vacinadoId Int
   dose       Dose @relation(fields: [doseId], references: [id])
   doseId     Int
+  data       DateTime @db.Date
 
-  @@id([vacinaId, vacinadoId, doseId])
+  @@id([vacinadoId, doseId])
 }
