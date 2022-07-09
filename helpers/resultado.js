@@ -48,6 +48,13 @@ function validar(variavel, validacoes)
 	return resposta;
 }
 
+function continuar_validacao(inicial, validacoes)
+{
+	let acoes    = validacoes.map(acao);
+	let resposta = acoes.reduce(repassando_resultado, inicial);
+	return resposta;
+}
+
 function acao(validacao)
 {
 	let condicao = validacao.validador;
@@ -66,3 +73,4 @@ exports.entao   = entao
 exports.e_entao = e_entao
 exports.em_acao = em_acao
 exports.validar = validar
+exports.continuar_validacao = continuar_validacao
