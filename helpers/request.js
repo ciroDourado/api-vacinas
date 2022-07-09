@@ -4,7 +4,7 @@ exports.validarCampos = function (formulario, regras) {
   let campos      = Object.entries(formulario);
 
   let enviados    = new Map(campos);
-  let necessarios = regras.campos.map(campo => campo.nome);
+  let necessarios = regras.map(regra => regra.campo);
   return camposExistem(enviados, necessarios);
 }
 
