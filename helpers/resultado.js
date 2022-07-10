@@ -67,6 +67,19 @@ function repassando_resultado(resultado, acao)
 	return e_entao(resultado, acao);
 }
 
+function e(resultado1, resultado2) {
+	let codigo1 = resultado1.tipo.codigo;
+	let codigo2 = resultado2.tipo.codigo; 
+	let codigos = `${codigo1}${codigo2}`;
+	switch(codigos) {
+		case '11': return resultado1;
+		case '12': return resultado2;
+		case '21': return resultado1;
+		case '22': return resultado1;
+	}
+}
+
+
 exports.ok      = ok
 exports.erro    = erro
 exports.entao   = entao
@@ -74,3 +87,4 @@ exports.e_entao = e_entao
 exports.em_acao = em_acao
 exports.validar = validar
 exports.continuar_validacao = continuar_validacao
+exports.e = e
