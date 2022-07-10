@@ -1,28 +1,33 @@
-const configuracoes = require('../main.js');
+const repositorio = require('../main.js').repositorio();
 
-exports.cpfEValido = async function (input) {
-  let eString = typeof input === "string";
-  let eNumerico = !isNaN(input);
-  let tem11Caracteres = input.length == 11;
-  return eString 
-    && eNumerico 
-    && tem11Caracteres 
-    && digitosSaoValidos(input) 
-    && (await cpfEUnico(input));
+exports.eString = function(input) {
+  return typeof input === "string";
 }
 
-async function cpfEUnico(input) {
-  let resultado = await configuracoes
-    .repositorio()
-    .findUnique({ where: { cpf: input } });
+exports.naoVazia = function (string) {
+  return string !== "";
+}
+
+exports.eNumerico = function (string) {
+  return ! isNaN(string);
+}
+
+exports.tem11Caracteres = function (digitos) {
+  return digitos.length == 11;
+}
+
+exports.digitosSaoValidos = function (digitos) {
+  return naoSaoRepetidos(digitos)
+    && passaNoPrimeiroTeste(digitos)
+    && passaNoSegundoTeste(digitos);
+}
+
+exports.cpfEUnico = async function (input) {
+  let query     = { where: { cpf: input } }
+  let resultado = await repositorio.findUnique(query);
   return resultado == null;
 }
 
-function digitosSaoValidos(digitosCpf) {
-  return naoSaoRepetidos(digitosCpf)
-    && passaNoPrimeiroTeste(digitosCpf)
-    && passaNoSegundoTeste(digitosCpf);
-}
 
 function naoSaoRepetidos(digitosCpf) {
   let invalidos = new Set([
