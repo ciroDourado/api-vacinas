@@ -1,42 +1,36 @@
-const configuracoes = require('../main.js');
+const repositorio = require('../main.js').repositorio();
 
-const validacao = require('../../validacao/main.js');
+const validacao = require('../validacao/main.js');
+const Request = require('../../helpers/request.js');
+const Resultado = require('../../helpers/resultado.js');
 
-let regras_cadastro = {
-  campos: [
-    {
-      nome: 'nome',
-      validacao: nomeEValido
-    },
-  ]
-};
+let regras = [
+  {
+    campo: 'nome',
+    validacoes: [
+      { validador: validacao.eString, em_caso_de_erro: "Deve ser uma string" },
+      { validador: validacao.naoVazia, em_caso_de_erro: "Não pode estar vazio" },
+    ]
+  }
+]
 
 exports.cadastrar = async function (formulario) {
-  if (await validacao.dadosSaoValidos(formulario, regras_cadastro)) {
-    return await cadastro(formulario);
-  } 
-  return null;
+  let resultado = Request.validar(formulario, regras);
+  switch (resultado.tipo.rotulo) {
+    case "ok": return await cadastrar(formulario);
+    case "erro": return resultado;
+  }
 }
 
-async function cadastro(formulario) {
-  let endereco = {
-    data: {
-      nome: formulario.nome,
-    }
-  };
-  return await configuracoes.repositorio().create(endereco);
+async function cadastrar(formulario) {
+  switch (await validacao.nomeEUnico(formulario.nome)) {
+    case true : return await cadastrarVacina(formulario);
+    case false: return Resultado.erro("O nome já está sendo usado");
+  }
 }
 
-async function nomeEValido(input) {
-  let eString  = typeof input === "string";
-  let naoVazia = input !== "";
-  return (await nomeEUnico(input)) && eString && naoVazia;
-}
-
-
-async function nomeEUnico(input) {
-  let resultado = await configuracoes
-    .repositorio()
-    .findUnique({ where: { nome: input } });
-  return resultado == null;
+async function cadastrarVacina(formulario) {
+  let dados = { data: { nome: formulario.nome } };
+  let vacina = await repositorio.create(dados);
+  return Resultado.ok(vacina);
 }
