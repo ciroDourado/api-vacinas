@@ -61,7 +61,7 @@ async function cadastrarParaOMorador(formulario) {
 
 async function cadastrarEndereco(formulario) {
   let dados = { data: { 
-    complemento: formulario.nome,
+    complemento: formulario.complemento,
     numero: formulario.numero,
     cep: formulario.cep,
     moradorId: formulario.moradorId 
