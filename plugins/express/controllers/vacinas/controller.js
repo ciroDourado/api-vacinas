@@ -4,8 +4,8 @@ const servicoDeListagem = require("../../../../vacinas/listagem/main.js");
 
 exports.criar = async (req, res) => {
   let formulario = req.body;
-  let resultado = await servicoDeCadastro.cadastrar(formulario);
-  return res.json(resultado ?? "erro");
+  let resultado  = await servicoDeCadastro.cadastrar(formulario);
+  return res.json(resultado);
 };
 exports.listar = async (req, res) => {
   let vacinas = await servicoDeListagem.listar();
