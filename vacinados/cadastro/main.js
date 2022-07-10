@@ -1,38 +1,51 @@
-const configuracoes = require('../main.js');
+const repositorio = require('../main.js').repositorio();
 
-const validacaoCpf = require('../validacao/cpf.js');
-const validacao    = require('../../validacao/main.js');
+const validacao = require('../validacao/main.js');
+const Request = require('../../helpers/request.js');
+const Resultado = require('../../helpers/resultado.js');
 
-let regras_cadastro = {
-  campos: [
-    {
-      nome: 'nome',
-      validacao: nomeEValido
-    },
-    {
-      nome: 'cpf',
-      validacao: validacaoCpf.cpfEValido
-    },
-  ]
-};
+let regras = [
+  {
+    campo: 'cpf',
+    validacoes: [
+      { validador: validacao.eString, em_caso_de_erro: "O CPF deve ser uma string" },
+      { validador: validacao.naoVazia, em_caso_de_erro: "O CPF não pode estar vazio" },
+      { validador: validacao.eNumerico, em_caso_de_erro: "O CPF deve conter apenas números" },
+      { validador: validacao.tem11Caracteres, em_caso_de_erro: "O CPF deve ter exatamente 11 dígitos" },
+      { validador: validacao.digitosSaoValidos, em_caso_de_erro: "A combinação de dígitos do CPF não é válida" },
+    ]
+  },
+  {
+    campo: 'nome',
+    validacoes: [
+      { validador: validacao.eString, em_caso_de_erro: "O nome do paciente deve ser uma string" },
+      { validador: validacao.naoVazia, em_caso_de_erro: "O nome do paciente não pode estar vazio" },
+    ]
+  }
+]
+exports.regrasVacinado = regras
 
 exports.cadastrar = async function (formulario) {
-  if (await validacao.dadosSaoValidos(formulario, regras_cadastro)) {
-    return await cadastro(formulario);
+  let resultado = Request.validar(formulario, regras);
+  switch (resultado.tipo.rotulo) {
+    case "ok": return await cadastrar(formulario);
+    case "erro": return resultado;
   }
-  return null;
+}
+async function cadastrar(formulario) {
+  switch (await validacao.cpfEUnico(formulario.moradorId)) {
+    case true: return await cadastrarPaciente(formulario);
+    case false: return Resultado.erro("O CPF dado já pertence à outro cadastro no sistema");
+  }
 }
 
-async function cadastro(formulario) {
-  let vacinado = {
+async function cadastrarPaciente(formulario) {
+  let dados = {
     data: {
       nome: formulario.nome,
       cpf: formulario.cpf,
     }
   };
-  return await configuracoes.repositorio().create(vacinado);
-}
-
-function nomeEValido(input) {
-  return true;
+  let paciente = await repositorio.create(dados);
+  return Resultado.ok(paciente);
 }
