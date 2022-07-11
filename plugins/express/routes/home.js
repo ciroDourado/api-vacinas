@@ -8,6 +8,9 @@ module.exports = app => {
           { url: "/doses", método: "GET", descrição: "Listagem de doses" },
           { url: "/doses", método: "POST", descrição: "Cadastro de doses" },
         ],
+        doses_das_vacinas: [
+          { url: "/doses_das_vacinas", método: "GET", descrição: "Listagem de doses das vacinas" },
+        ],
         enderecos: [
           { url: "/enderecos", método: "GET", descrição: "Listagem de endereços" },
           { url: "/enderecos", método: "POST", descrição: "Cadastro de endereços" },
