@@ -20,9 +20,10 @@ app.use(url_encoded_parser)
 // rotas
 require("./routes/home.js")(app)
 require("./routes/doses/routes.js")(app)
-require("./routes/enderecos/routes.js")(app)
+// require("./routes/enderecos/routes.js")(app)
 require("./routes/vacinados/routes.js")(app)
 require("./routes/vacinas/routes.js")(app)
+require("./routes/doses_das_vacinas/routes.js")(app)
 // require("./routes/validacao/routes.js")(app)
 
 let servidor = app.listen(env.APPLICATION_PORT)
