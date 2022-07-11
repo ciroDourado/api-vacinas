@@ -1,4 +1,5 @@
-const servicoDeCadastro = require("../../../../doses/cadastro/main.js"); 
+// const servicoDeCadastro = require("../../../../doses/cadastro/main.js");
+const servicoDeCadastro = require("../../../../doses/cadastro/com_vacina.js");
 const servicoDeListagem = require("../../../../doses/listagem/main.js"); 
 
 
