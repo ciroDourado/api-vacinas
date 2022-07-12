@@ -28,6 +28,12 @@ exports.cpfEUnico = async function (input) {
   return resultado == null;
 }
 
+exports.cpfExiste = async function (cpf) {
+  let query = { where: { cpf: cpf } }
+  let resultado = await repositorio.findUnique(query);
+  return resultado != null;
+}
+
 
 function naoSaoRepetidos(digitosCpf) {
   let invalidos = new Set([

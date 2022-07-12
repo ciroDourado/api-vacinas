@@ -28,16 +28,17 @@ model Endereco {
 }
 
 model Vacina {
-  id        Int    @id @default(autoincrement())
-  nome      String @db.VarChar(300) @unique
-  doses     DosesDasVacinas[]
+  id               Int    @id @default(autoincrement())
+  nome             String @db.VarChar(300) @unique
+  doses            DosesDasVacinas[]
+  vacinasAplicadas VacinasTomadas[]
 }
 
 model Dose {
-  id        Int    @id @default(autoincrement())
-  nome      String @db.VarChar(300) @unique
-  vacinas   DosesDasVacinas[]
-  aplicadas VacinasTomadas[]
+  id             Int    @id @default(autoincrement())
+  nome           String @db.VarChar(300) @unique
+  vacinas        DosesDasVacinas[]
+  dosesAplicadas VacinasTomadas[]
 }
 
 model DosesDasVacinas {
@@ -50,11 +51,13 @@ model DosesDasVacinas {
 }
 
 model VacinasTomadas {
-  vacinado   Vacinado @relation(fields: [vacinadoId], references: [id])
-  vacinadoId Int
-  dose       Dose @relation(fields: [doseId], references: [id])
-  doseId     Int
-  data       DateTime @db.Date
+  vacinado       Vacinado @relation(fields: [vacinadoId], references: [id])
+  vacinadoId     Int
+  vacina         Vacina @relation(fields: [vacinaId], references: [id])
+  vacinaId       Int
+  dose           Dose @relation(fields: [doseId], references: [id])
+  doseId         Int
+  data           DateTime @db.Date
 
-  @@id([vacinadoId, doseId])
+  @@id([vacinadoId, vacinaId, doseId])
 }

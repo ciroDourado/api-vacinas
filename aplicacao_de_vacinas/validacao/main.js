@@ -15,6 +15,38 @@ exports.naoVazia = function (string) {
 }
 
 exports.eData = function (data) {
-  // to-do
-  return true;
+  let segundos = Date.parse(data);
+  return !isNaN(segundos);
+}
+
+exports.vacinadoExiste = async function (vacinadoId) {
+  let query = { where: { id: vacinadoId } }
+  let resultado = await vacinadosRepositorio.findUnique(query);
+  return resultado != null;
+}
+
+exports.vacinaExiste = async function (vacinaId) {
+  let query = { where: { id: vacinaId } }
+  let resultado = await vacinasRepositorio.findUnique(query);
+  return resultado != null;
+}
+
+exports.doseExiste = async function (doseId) {
+  let query = { where: { id: doseId } }
+  let resultado = await dosesRepositorio.findUnique(query);
+  return resultado != null;
+}
+
+exports.dosePertenceAVacina = async function (doseId, vacinaId) {
+  let composta = { doseId: doseId, vacinaId: vacinaId };
+  let query = { where: { vacinaId_doseId: composta } };
+  let resultado = await dosesDasVacinasRepositorio.findUnique(query);
+  return resultado != null;
+}
+
+exports.doseNaoFoiAplicada = async function (doseId, vacinaId, vacinadoId) {
+  let composta = { doseId: doseId, vacinaId: vacinaId, vacinadoId: vacinadoId };
+  let query = { where: { vacinadoId_vacinaId_doseId: composta } };
+  let resultado = await aplicacaoRepositorio.findUnique(query);
+  return resultado == null;
 }
