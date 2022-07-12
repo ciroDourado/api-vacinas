@@ -1,14 +1,7 @@
-const configuracoes = require('../main.js');
+const repositorio = require('../main.js').repositorio();
 
-exports.cpfEValido = async function (input) {
-  let eString = typeof input === "string";
-  let eNumerico = !isNaN(input);
-  let tem11Caracteres = input.length == 11;
-  return eString 
-    && eNumerico 
-    && tem11Caracteres 
-    && digitosSaoValidos(input) 
-    && (await cpfEUnico(input));
+exports.eString = function(input) {
+  return typeof input === "string";
 }
 
 exports.naoVazia = function (string) {
@@ -30,7 +23,7 @@ exports.digitosSaoValidos = function (digitos) {
 }
 
 exports.cpfEUnico = async function (input) {
-  let query = { where: { cpf: input } }
+  let query     = { where: { cpf: input } }
   let resultado = await repositorio.findUnique(query);
   return resultado == null;
 }

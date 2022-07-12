@@ -1,5 +1,4 @@
-const servicoDeCadastro = require("../../../../vacinas/cadastro/main.js"); 
-const servicoDeListagem = require("../../../../vacinas/listagem/main.js"); 
+const servicoDeCadastro = require("../../../../aplicacao_de_vacinas/cadastro/por_cpf.js");
 
 
 exports.criar = async (req, res) => {
@@ -8,8 +7,7 @@ exports.criar = async (req, res) => {
   return res.json(resultado);
 };
 exports.listar = async (req, res) => {
-  let vacinas = await servicoDeListagem.listar();
-  return res.json(vacinas);
+
 };
 exports.encontrar = (req, res) => {
 

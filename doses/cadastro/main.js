@@ -8,11 +8,12 @@ let regras = [
   {
     campo: 'nome',
     validacoes: [
-      { validador: validacao.eString, em_caso_de_erro: "Deve ser uma string" },
-      { validador: validacao.naoVazia, em_caso_de_erro: "Não pode estar vazio" },
+      { validador: validacao.eString, em_caso_de_erro: "O nome da vacina deve ser uma string" },
+      { validador: validacao.naoVazia, em_caso_de_erro: "O nome da vacina não pode estar vazia" },
     ]
   }
 ]
+exports.regrasDose = regras
 
 exports.cadastrar = async function (formulario) {
   let resultado = Request.validar(formulario, regras);
@@ -24,13 +25,17 @@ exports.cadastrar = async function (formulario) {
 
 async function cadastrar(formulario) {
   switch (await validacao.nomeEUnico(formulario.nome)) {
-    case true : return await cadastrarVacina(formulario);
-    case false: return Resultado.erro("O nome já está sendo usado");
+    case true: return await cadastrarDose(formulario);
+    case false: return Resultado.erro("O nome desta dose já está sendo usado");
   }
 }
 
-async function cadastrarVacina(formulario) {
-  let dados = { data: { nome: formulario.nome } };
-  let vacina = await repositorio.create(dados);
-  return Resultado.ok(vacina);
+async function cadastrarDose(formulario) {
+  let dados = {
+    data: {
+      nome: formulario.nome,
+    }
+  };
+  let dose = await repositorio.create(dados);
+  return Resultado.ok(dose);
 }
