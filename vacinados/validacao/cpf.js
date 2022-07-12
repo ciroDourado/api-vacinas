@@ -11,18 +11,36 @@ exports.cpfEValido = async function (input) {
     && (await cpfEUnico(input));
 }
 
-async function cpfEUnico(input) {
-  let resultado = await configuracoes
-    .repositorio()
-    .findUnique({ where: { cpf: input } });
+exports.naoVazia = function (string) {
+  return string !== "";
+}
+
+exports.eNumerico = function (string) {
+  return ! isNaN(string);
+}
+
+exports.tem11Caracteres = function (digitos) {
+  return digitos.length == 11;
+}
+
+exports.digitosSaoValidos = function (digitos) {
+  return naoSaoRepetidos(digitos)
+    && passaNoPrimeiroTeste(digitos)
+    && passaNoSegundoTeste(digitos);
+}
+
+exports.cpfEUnico = async function (input) {
+  let query = { where: { cpf: input } }
+  let resultado = await repositorio.findUnique(query);
   return resultado == null;
 }
 
-function digitosSaoValidos(digitosCpf) {
-  return naoSaoRepetidos(digitosCpf)
-    && passaNoPrimeiroTeste(digitosCpf)
-    && passaNoSegundoTeste(digitosCpf);
+exports.cpfExiste = async function (cpf) {
+  let query = { where: { cpf: cpf } }
+  let resultado = await repositorio.findUnique(query);
+  return resultado != null;
 }
+
 
 function naoSaoRepetidos(digitosCpf) {
   let invalidos = new Set([
