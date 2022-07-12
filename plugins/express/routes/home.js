@@ -20,7 +20,9 @@ module.exports = app => {
           { url: "/doses_das_vacinas", método: "GET", descrição: "Listagem de doses das vacinas" },
         ],
         aplicacao_de_vacinas: [
-          { url: "/aplicacao_de_vacinas", método: "POST", descrição: "Cadastrar aplicação de vacinas" },
+          { url: "/aplicacao_de_vacinas"                  , método: "POST", descrição: "Cadastrar aplicação de vacinas" },
+          { url: "/aplicacao_de_vacinas/consulta/cpf"     , método: "POST", descrição: "Busca vacinas tomadas por CPF" },
+          { url: "/aplicacao_de_vacinas/consulta/vacinado", método: "POST", descrição: "Busca vacinas tomadas por ID do vacinado" },
         ],
       }
     }
