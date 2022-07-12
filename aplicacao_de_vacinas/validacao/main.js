@@ -1,3 +1,9 @@
+let vacinadosRepositorio       = require('../../vacinados/main.js').repositorio();
+let vacinasRepositorio         = require('../../vacinas/main.js').repositorio();
+let dosesRepositorio           = require('../../doses/main.js').repositorio();
+let dosesDasVacinasRepositorio = require('../../doses_da_vacina/main.js').repositorio();
+let aplicacaoRepositorio       = require('../main.js').repositorio();
+
 exports.eNumero = function (input) {
   return typeof input === "number";
 }
