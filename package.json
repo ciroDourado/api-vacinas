@@ -4,7 +4,7 @@
   "description": "Uma API feita para consultar registros de vacinas",
   "main": "plugins/express/server.js",
   "scripts": {
-    "test": "test",
+    "test": "jest",
     "dev": "node ."
   },
   "repository": {
