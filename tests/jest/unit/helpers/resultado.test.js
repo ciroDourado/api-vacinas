@@ -30,7 +30,15 @@ test("caso uma estrutura 'erro' (de código 2) seja passada para 'entao', nada �
 let teste_5 = () => {
   let resultado = Resultado.erro("Erro genérico");
   let maiuscula = string => string.toUpperCase()
-  let erro = Resultado.entao(resultado, maiuscula) 
+  let erro = Resultado.entao(resultado, maiuscula)
   expect(resultado).toBe(erro)
 };
 test("caso uma estrutura 'erro' (de código 2) seja passada para 'entao', a mesma estrutura é retornada", teste_5);
+
+let teste_6 = () => {
+  let resultado = Resultado.ok("any");
+  let acao = jest.fn()
+  Resultado.e_entao(resultado, acao)
+  expect(acao).toBeCalled()
+};
+test("caso uma estrutura 'ok' seja passada para 'e_entao', a ação deve ser executada", teste_6);
