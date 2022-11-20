@@ -45,3 +45,43 @@ let teste_3 = () => {
   expect(resultado.tipo.codigo).toBe(1)
 };
 test("para ser bem-sucedido, todos os campos necessários devem estar presentes", teste_3);
+
+let teste_4 = () => {
+  let regras = [
+    {
+      campo: "A",
+      validacoes: [
+        {
+          validador: input => input.length != 0,
+          em_caso_de_erro: "este campo não pode estar vazio"
+        }
+      ]
+    },
+  ];
+  let formulario = {
+    A: "valor de A",
+  };
+  let resultado = Request.validar(formulario, regras)
+  expect(resultado.tipo.codigo).toBe(1)
+};
+test("para ser bem-sucedido, os campos necessários devem passar nas validações", teste_4);
+
+let teste_5 = () => {
+  let regras = [
+    {
+      campo: "A",
+      validacoes: [
+        {
+          validador: input => input.length != 0,
+          em_caso_de_erro: "este campo não pode estar vazio"
+        }
+      ]
+    },
+  ];
+  let formulario = {
+    A: "",
+  };
+  let resultado = Request.validar(formulario, regras)
+  expect(resultado.tipo.codigo).toBe(2)
+};
+test("caso o campo necessário não passe na validação, é retornado erro", teste_5);
