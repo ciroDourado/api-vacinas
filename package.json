@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ciroDourado/api-vacinas#readme",
   "devDependencies": {
+    "jest": "^29.3.1",
     "prisma": "^4.0.0"
   },
   "dependencies": {
